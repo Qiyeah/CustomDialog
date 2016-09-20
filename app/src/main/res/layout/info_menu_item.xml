@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:background="#00000000"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@id/dc_route1"
+        style="@style/Row"
+        android:layout_weight="1"
+        />
+    <EditText
+        android:id="@id/dc_name1"
+        android:layout_weight="1"
+        style="@style/Cell"/>
+    <Spinner
+        android:id="@id/dc_total_symbol1"
+        android:layout_weight="1"
+        style="@style/CellSymbol"
+        />
+    <EditText
+        android:id="@id/dc_total_per1"
+        android:layout_weight="1"
+        style="@style/Cell"
+        android:text="100"/>
+    <Spinner
+        android:id="@id/dc_it_symbol1"
+        android:layout_weight="1"
+        style="@style/CellSymbol"
+        />
+    <EditText
+        android:id="@id/dc_it_per1"
+        android:layout_weight="1"
+        style="@style/Cell"
+        android:text="100"/>
+</LinearLayout>
