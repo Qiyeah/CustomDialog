@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+            >
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scrollbars="none">
+        <TableLayout android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:stretchColumns="0,1,2,3,4,5"
+                     android:orientation="vertical"
+            >
+            <TableRow android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+                <TextView
+                    android:id="@id/dc_route1"
+                    style="@style/Row"
+                    android:text="1"/>
+                <EditText
+                    android:id="@id/dc_name1"
+                    android:text=""
+                    style="@style/Cell"/>
+                <Spinner
+                    android:id="@id/dc_total_symbol1"
+                    style="@style/CellSymbol"
+                    />
+                <EditText
+                    android:id="@id/dc_total_per1"
+                    style="@style/Cell"
+                    android:text="100"/>
+                <Spinner
+                    android:id="@id/dc_it_symbol1"
+                    style="@style/CellSymbol"
+                    />
+                <EditText
+                    android:id="@id/dc_it_per1"
+                    style="@style/Cell"
+                    android:text="100"/>
+            </TableRow>
+            <TableRow android:layout_width="match_parent"
+                      android:layout_height="50dp"
+                >
+
+                <TextView
+                    android:id="@id/dc_route2"
+                    style="@style/Row"
+                    android:text="2"/>
+                <EditText
+                    android:id="@id/dc_name2"
+                    style="@style/Cell"/>
+                <Spinner
+                    android:id="@id/dc_total_symbol2"
+                    style="@style/CellSymbol"
+                    />
+                <EditText
+                    android:id="@id/dc_total_per2"
+                    style="@style/Cell"
+                    android:text="100"/>
+                <Spinner
+                    android:id="@id/dc_it_symbol2"
+                    style="@style/CellSymbol"
+                    />
+                <EditText
+                    android:id="@id/dc_it_per2"
+                    style="@style/Cell"
+                    android:text="100"/>
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+</FrameLayout>
