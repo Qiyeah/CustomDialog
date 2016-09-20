@@ -36,52 +36,31 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO 初始化容器
         initContainer(R.layout.info_dc);
-        EditText name = (EditText) mView.findViewById(R.id.dc_name1);
-        System.out.println(name.getText().toString().trim());
-        Toast.makeText(MainActivity.this, "name = " +(name.getText().toString().trim()), Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //TODO 初始化TAG
-     /*   if (null == dcTag){
+        if (null == dcTag) {
             dcTag = new InfoTag();
             initInfoTag(dcTag, dcRouteIds, dcNameIds, dcTotalSymbolIds, dcITSymbolIds, dcTotalPerIds, dcITPerIds);
-        }*/
-        //TODO 初始化Spinner
-       /* dcInfos = new AndroidInfo[dcRouteIds.length];
+        }
+        //TODO 初始化结果集，Info对象的数组
+        dcInfos = new AndroidInfo[dcRouteIds.length];
         for (int i = 0; i < dcRouteIds.length; i++) {
             dcInfos[i] = new AndroidInfo();
         }
-        initSpinner(dcTag, dcInfos);*/
-
-
-
-        Spinner totalSymbolSpinner = (Spinner) mView.findViewById(R.id.dc_total_symbol1);
-        totalSymbolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(MainActivity.this, "position = " + position, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(MainActivity.this, "onNothingSelected ", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        //TODO 初始化Spinner
+        initSpinner(dcTag, dcInfos);
         //generateInfos( dcTag,dcInfos);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         AlertDialog alert = builder.create();
         builder.setCustomTitle(getLayoutInflater().inflate(R.layout.info_title, null));
-        builder.setView(getLayoutInflater().inflate(R.layout.info_dc, null));
+        builder.setView(mView);
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //generateInfos( dcTag,dcInfos);
-                EditText name = (EditText) mView.findViewById(R.id.dc_name1);
-                System.out.println(name.getText().toString().trim());
-                Toast.makeText(MainActivity.this, "name = " +(name.getText().toString().trim()), Toast.LENGTH_LONG).show();
-
+            //TODO　给结果集里的每个对象赋值
+            generateInfos(dcTag, dcInfos);
             }
         });
         builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -171,30 +150,50 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initSpinner(InfoTag tag, AndroidInfo[] infos) {
         int size = tag.route.size();
-        for (int i = 0; i < size; i++) {
-            Spinner totalSymbolSpinner = tag.totalSymbol.get(i);
-            totalSymbolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //for (int i = 0; i < size; i++) {
+            int totalSymbolId = tag.totalSymbol.get(0).getId();
+            int itSymbolId = tag.itSymbol.get(0).getId();
+            System.out.println(totalSymbolId);
+            System.out.println(itSymbolId);
+            tag.totalSymbol.get(0).setOnItemSelectedListener(new InfoOnItemSelectedListenerImpl() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(MainActivity.this, "position = " + position, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                public void callBack(int value) {
+                    totalSymbol = value;
+                    //Toast.makeText(MainActivity.this, "totalSymbol = "+totalSymbol, Toast.LENGTH_SHORT).show();
 
                 }
             });
-            System.out.println("null == infos[i] : " + (null == infos[i]));
-            System.out.println("null == tag.totalSymbol.get(i) : " + (null == tag.totalSymbol.get(i)));
-            infos[i].setTotalSymbol(totalSymbol);
-            tag.itSymbol.get(i).setOnItemSelectedListener(new InfoOnItemSelectedListenerImpl(i, InfoOnItemSelectedListenerImpl.ITEM_SYMBOL) {
+
+            tag.itSymbol.get(0).setOnItemSelectedListener(new InfoOnItemSelectedListenerImpl() {
                 @Override
                 public void callBack(int value) {
                     itSymbol = value;
+                    //Toast.makeText(MainActivity.this, "itSymbol = "+itSymbol, Toast.LENGTH_SHORT).show();
                 }
             });
-            infos[i].setITSymbol(itSymbol);
-        }
+
+        int totalSymbolId1 = tag.totalSymbol.get(1).getId();
+        int itSymbolId1 = tag.itSymbol.get(1).getId();
+        System.out.println(totalSymbolId1);
+        System.out.println(itSymbolId1);
+        tag.totalSymbol.get(1).setOnItemSelectedListener(new InfoOnItemSelectedListenerImpl() {
+            @Override
+            public void callBack(int value) {
+                totalSymbol = value;
+                //Toast.makeText(MainActivity.this, "totalSymbol = "+totalSymbol, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+        tag.itSymbol.get(1).setOnItemSelectedListener(new InfoOnItemSelectedListenerImpl() {
+            @Override
+            public void callBack(int value) {
+                itSymbol = value;
+                //Toast.makeText(MainActivity.this, "itSymbol = "+itSymbol, Toast.LENGTH_SHORT).show();
+            }
+        });
+       // }
     }
 
     private void initContainer(int layoutId) {
@@ -230,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             info.setTotalPer(totalPerInt);
             info.setITPer(itPerInt);
             info.setRouteName(nameStr);
-            System.out.println("id = " + info.getId() +
+           /* System.out.println("id = " + info.getId() +
                     "\nname = " + info.getRouteName() +
                     "\nroute = " + info.getRoute() +
                     "\ntotalPer = " + info.getTotalPer() +
@@ -238,14 +237,14 @@ public class MainActivity extends AppCompatActivity {
                     "\nitPer = " + info.getITPer() +
                     "\nitSymbol = " + info.getITSymbol());
             System.out.println();
-            Toast.makeText(MainActivity.this, "id = "+info.getId()+
-                    "\nroute = "+info.getRoute()+
-                    "\nname = "+info.getRouteName()+
-                    "\ntotalPer = "+info.getTotalPer()+
-                    "\ntotalSymbol = "+info.getTotalSymbol()+
-                    "\nitPer = "+info.getITPer()+
-                    "\nitSymbol = "+info.getITSymbol()
-                    , Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "id = " + info.getId() +
+                            "\nroute = " + info.getRoute() +
+                            "\nname = " + info.getRouteName() +
+                            "\ntotalPer = " + info.getTotalPer() +
+                            "\ntotalSymbol = " + info.getTotalSymbol() +
+                            "\nitPer = " + info.getITPer() +
+                            "\nitSymbol = " + info.getITSymbol()
+                    , Toast.LENGTH_SHORT).show();*/
 
         }
     }

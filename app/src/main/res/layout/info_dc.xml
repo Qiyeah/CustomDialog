@@ -21,7 +21,6 @@
                     android:text="1"/>
                 <EditText
                     android:id="@id/dc_name1"
-                    android:text=""
                     style="@style/Cell"/>
                 <Spinner
                     android:id="@id/dc_total_symbol1"
